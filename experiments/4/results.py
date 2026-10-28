@@ -5,7 +5,11 @@ import numpy as np
 
 metric = 1
 
+metric_names = ["abs mean", "relative norm"]
+
 n_layers = 4
+
+scaler = 1000
 
 y_noise = np.arange(0, 1, 0.05)
 
@@ -35,13 +39,13 @@ for i, magnitude in enumerate(y_noise[1:]):
     for n_layer in range(n_layers):
         print(f"Layer {n_layer} | {how_much_more_mean[n_layer, i, metric]:.3f} ({how_much_more_std[n_layer, i, metric]:.3f})")
 
-# print("\nABSOLUTE")
-#
-# results_params_mean = np.mean(results_params, axis=0)
-# results_params_std = np.std(results_params, axis=0)
-#
-# for i, magnitude in enumerate(y_noise[1:]):
-#     print(f"y noise: {magnitude}, magnitude: {results_max_performance_loss_mean[i+1]}")
-#
-#     for n_layer in range(n_layers):
-#         print(f"Layer {n_layer} | {results_params_mean[n_layer, i, metric]:.3f} ({results_params_std [n_layer, i, metric]:.3f})")
+print("\nABSOLUTE")
+
+results_params_mean = np.mean(results_params, axis=0)
+results_params_std = np.std(results_params, axis=0)
+
+for i, magnitude in enumerate(y_noise[1:]):
+    print(f"y noise: {magnitude}, magnitude: {results_max_performance_loss_mean[i+1]}")
+
+    for n_layer in range(n_layers):
+        print(f"Layer {n_layer} | {results_params_mean[n_layer, i, metric]*scaler:.3f} ({results_params_std [n_layer, i, metric]*scaler:.3f})")

@@ -4,7 +4,9 @@ from scipy import stats
 
 # 0 = abs mean
 # 1 = norm
-metric = 1
+metric = 0
+
+metric_names = ["abs mean", "relative norm"]
 
 magnitude_max = 5
 magnitude_step = 0.1
@@ -42,6 +44,20 @@ results_std = np.std(results, axis=0)
 fig, ax = plt.subplots()
 
 ax.plot(np.arange(0, magnitude_max+magnitude_step, magnitude_step), results_mean[:, metric])
+
 ax.set_xlabel("Magnitude")
+ax.set_ylabel(f"{metric_names[metric]}")
+ax.set_title("Mean results")
+
+fig1, ax1 = plt.subplots()
+
+for i in range(results.shape[1]):
+    ax1.scatter([i] * 20, results[:, i, metric])
+
+ax1.set_xticklabels([str(x) for x in range(-1, int(magnitude_max+magnitude_step*10), 1)])
+
+ax1.set_xlabel("Magnitude")
+ax1.set_ylabel(f"{metric_names[metric]}")
+ax1.set_title("Results")
 
 plt.show()

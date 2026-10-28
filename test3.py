@@ -11,12 +11,12 @@ n_informative_percent = 0.8
 n_classes = 10
 
 X_noise = False
-X_noise_range = [200, 230]
+X_noise_range = [150, 200]
 X_noise_factor = 2
 
-y_noise = False
-y_noise_range = [300, 330]
-y_noise_factor = 0.5
+y_noise = True
+y_noise_range = [150, 200]
+y_noise_factor = 1
 
 stream = OWDSG(n_drifts=0,
                n_novel=0,
@@ -43,10 +43,8 @@ for n_chunk in range(n_chunks):
         X += X_noise_factor * np.abs(X) * np.random.normal(0, 1.0, size=X.shape)
 
     if y_noise and (y_noise_range[0] <= n_chunk <= y_noise_range[1]):
-        to_shuffle = len(y) * y_noise_factor
-        y_shuffle = np.copy(y)
-        np.random.shuffle(y_shuffle)
-        y[:int(to_shuffle)] = y_shuffle[:int(to_shuffle)]
+        flip_mask = np.random.random(len(y)) < y_noise_factor
+        y[flip_mask] = np.random.randint(0, n_classes, size=flip_mask.sum())
 
     if first:
         mlp.partial_fit(X, y, classes=np.arange(n_classes))

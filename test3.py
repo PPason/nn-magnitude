@@ -6,27 +6,28 @@ from generator.OWDSG import OWDSG
 
 n_chunks = 300
 batch_size = 100
-n_features = 40
+n_features = 100
 n_informative_percent = 0.8
-n_classes = 10
+n_classes = 2
 
 X_noise = False
 X_noise_range = [150, 200]
 X_noise_factor = 2
 
-y_noise = True
-y_noise_range = [150, 200]
-y_noise_factor = 1
+y_noise = False
+y_noise_range = [150, 180]
+y_noise_factor = 0.1
 
-stream = OWDSG(n_drifts=0,
+stream = OWDSG(n_drifts=1,
                n_novel=0,
+               hide_label=True,
                n_classes=n_classes,
                n_features=n_features,
                n_informative=int(n_features * n_informative_percent),
                n_chunks=n_chunks,
                chunk_size=batch_size,
                drift_magnitude=2,
-               smooth_drift=False)
+               smooth_drift=True)
 
 mlp = MLPClassifier(hidden_layer_sizes=(40, 40, 40, ), batch_size=batch_size)
 

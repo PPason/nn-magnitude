@@ -25,8 +25,8 @@ for i in range(len(chunks)):
     print(f"Chunks {chunks[i]} | {np.mean(results_magnitude[:, i, metric_magnitude]):.3f} ({(np.std(results_magnitude[:, i, metric_magnitude])):.3f})")
     magnitudes.append(np.mean(results_magnitude[:, i, metric_magnitude]))
 
-results_params_abs = results_params[:, :, metric_params].T.flatten()
-results_params_norm = results_params[:, :, metric_params].T.flatten()
+results_params_abs = results_params[:, :, 0].T.flatten()
+results_params_norm = results_params[:, :, 1].T.flatten()
 
 results_magnitudes = results_magnitude[:, :, metric_magnitude].T.flatten()
 

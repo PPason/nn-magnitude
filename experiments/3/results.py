@@ -69,10 +69,10 @@ for n_ch, n_chunk in enumerate(magnitudes[1:]):
                 if res[i, j] < alpha:
                     if how_much_more_mean[i, n_ch, metric] > how_much_more_mean[j, n_ch, metric]:
                         print(
-                            f"Layer {i} ({how_much_more_mean[i, n_ch, metric]:.3f}) istotnie lepszy od Layer {j} ({how_much_more_mean[j, n_ch, metric]:.3f}) | p = {res[i, j]}")
+                            f"Layer {i} ({how_much_more_mean[i, n_ch, metric]:.3f} [{how_much_more_std[i, n_ch, metric]}:.3f]) istotnie lepszy od Layer {j} ({how_much_more_mean[j, n_ch, metric]:.3f} [{how_much_more_std[j, n_ch, metric]}:.3f]) | p = {res[i, j]}")
                     else:
                         print(
-                            f"Layer {j} ({how_much_more_mean[j, n_ch, metric]:.3f}) istotnie lepszy od Layer {i} ({how_much_more_mean[i, n_ch, metric]:.3f}) | p = {res[i, j]}")
+                            f"Layer {j} ({how_much_more_mean[j, n_ch, metric]:.3f} [{how_much_more_std[j, n_ch, metric]}:.3f]) istotnie lepszy od Layer {i} ({how_much_more_mean[i, n_ch, metric]:.3f} [{how_much_more_std[i, n_ch, metric]}:.3f]) | p = {res[i, j]}")
 
 print("\nABSOLUTE [10^-3]")
 
@@ -89,10 +89,10 @@ for n_ch, n_chunk in enumerate(magnitudes):
                 if res[i, j] < alpha and res[j, i] < alpha:
                     if results_mean[i, n_ch, metric] > results_mean[j, n_ch, metric]:
                         print(
-                            f"Layer {i} ({results_mean[i, n_ch, metric]*scaler:.3f}) istotnie lepszy od Layer {j} ({results_mean[j, n_ch, metric]*scaler:.3f}) | p = {res[i, j]}")
+                            f"Layer {i} ({results_mean[i, n_ch, metric]*scaler:.3f} [{results_std[i, n_ch, metric]*scaler:.3f}]) istotnie lepszy od Layer {j} ({results_mean[j, n_ch, metric]*scaler:.3f} [{results_std[j, n_ch, metric]*scaler:.3f}]) | p = {res[i, j]}")
                     else:
                         print(
-                            f"Layer {j} ({results_mean[j, n_ch, metric]*scaler:.3f}) istotnie lepszy od Layer {i} ({results_mean[i, n_ch, metric]*scaler:.3f}) | p = {res[i, j]}")
+                            f"Layer {j} ({results_mean[j, n_ch, metric]*scaler:.3f} [{results_std[j, n_ch, metric]*scaler:.3f}]) istotnie lepszy od Layer {i} ({results_mean[i, n_ch, metric]*scaler:.3f} [{results_std[i, n_ch, metric]*scaler:.3f}]) | p = {res[i, j]}")
 
 fig, ax = plt.subplots()
 

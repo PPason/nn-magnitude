@@ -99,10 +99,10 @@ for n_ch, n_chunk in enumerate(chunks):
                 if res[i, j] < alpha and res[j, i] < alpha:
                     if results_params_mean[i, n_ch, metric] > results_params_mean[j, n_ch, metric]:
                         print(
-                            f"Layer {i} ({results_params_mean[i, n_ch, metric]*scaler:.3f}) istotnie lepszy od Layer {j} ({results_params_mean[j, n_ch, metric]*scaler:.3f}) | p = {res[i, j]}")
+                            f"Layer {i} ({results_params_mean[i, n_ch, metric]*scaler:.3f} [{results_params_std[i, n_ch, metric]*scaler:.3f}]) istotnie lepszy od Layer {j} ({results_params_mean[j, n_ch, metric]*scaler:.3f} [{results_params_std[j, n_ch, metric]*scaler:.3f}]) | p = {res[i, j]}")
                     else:
                         print(
-                            f"Layer {j} ({results_params_mean[j, n_ch, metric]*scaler:.3f}) istotnie lepszy od Layer {i} ({results_params_mean[i, n_ch, metric]*scaler:.3f}) | p = {res[i, j]}")
+                            f"Layer {j} ({results_params_mean[j, n_ch, metric]*scaler:.3f} [{results_params_std[j, n_ch, metric]*scaler:.3f}]) istotnie lepszy od Layer {i} ({results_params_mean[i, n_ch, metric]*scaler:.3f} [{results_params_std[i, n_ch, metric]*scaler:.3f}]) | p = {res[i, j]}")
 
 fig, ax = plt.subplots()
 
@@ -122,7 +122,7 @@ ax.set_ylabel(f"{metric_names[metric]}")
 ax.set_title("Mean results")
 
 ax.legend()
-
+c
 fig1, ax1 = plt.subplots()
 
 offsets = (np.arange(n_layers) - (n_layers - 1) / 2) * 0.8 / n_layers

@@ -4,7 +4,7 @@ from scipy import stats
 
 # 0 = abs mean
 # 1 = norm
-metric = 0
+metric = 1
 
 metric_names = ["abs mean", "relative norm"]
 
@@ -19,8 +19,8 @@ results = np.load("results.npy")
 
 # print(results.shape)
 
-results_abs = results[:, :, metric].T.flatten()
-results_norm = results[:, :, metric].T.flatten()
+results_abs = results[:, :, 0].T.flatten()
+results_norm = results[:, :, 1].T.flatten()
 
 magnitudes_list = [x*magnitude_step for x in magnitudes for y in range(n_reps)]
 

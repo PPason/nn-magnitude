@@ -1,0 +1,71 @@
+import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.metrics import roc_auc_score
+
+# 0 = mean abs
+# 1 = norm
+
+metric = 1
+
+results_max_performance_loss = np.load("results_max_performance_loss.npy")
+
+mean_results_max_performance_loss = np.mean(results_max_performance_loss, axis=0)
+
+print(mean_results_max_performance_loss[0])
+print(mean_results_max_performance_loss[1])
+
+# ((100, 4, 2, 2))
+results = np.load("results.npy")
+
+mean_results = np.mean(results, axis=0)
+
+n_layers = 4
+
+for n_layer in range(n_layers):
+    print(n_layer)
+
+    print(f"y noise | {mean_results[n_layer, metric, 0]}")
+    print(f"drift | {mean_results[n_layer, metric, 1]}")
+
+fig, ax = plt.subplots(nrows=2, ncols=2)
+
+col = 0
+row = 0
+
+fig.suptitle(f"average max performance loss | drift : {mean_results_max_performance_loss[1]:.3f} | y: {mean_results_max_performance_loss[0]:.3f}")
+
+for n_layer in range(4):
+    y_true = np.concatenate([np.zeros(len(results[:, n_layer, metric, 0])), np.ones(len(results[:, n_layer, metric, 1]))])
+    scores = np.concatenate([results[:, n_layer, metric, 0], results[:, n_layer, metric, 1]])
+
+    auc_raw = roc_auc_score(y_true, scores)
+    auc_separation = max(auc_raw, 1 - auc_raw)
+
+    print(f"Layer {n_layer}: AUC-ROC = {auc_separation:.3f}")
+
+    ax[row, col].scatter(np.arange(len(results[:, n_layer, metric, 0])), results[:, n_layer, metric, 0], label="y noise")
+    ax[row, col].scatter(np.arange(len(results[:, n_layer, metric, 1])), results[:, n_layer, metric, 1], label="drift")
+    ax[row, col].set_title(f"Layer {n_layer} | AUC-ROC {auc_separation:.3f}")
+    ax[row, col].legend()
+
+    row += 1
+
+    if row == 2:
+        row = 0
+        col += 1
+
+fig1, ax1 = plt.subplots()
+
+y_true_max_performance_loss = np.concatenate([np.zeros(len(results_max_performance_loss[:, 0])), np.ones(len(results_max_performance_loss[:, 1]))])
+scores_max_performance_loss = np.concatenate([results_max_performance_loss[:, 0], results_max_performance_loss[:, 1]])
+auc_raw_max_performance_loss = roc_auc_score(y_true_max_performance_loss, scores_max_performance_loss)
+auc_separation_max_performance_loss = max(auc_raw_max_performance_loss, 1 - auc_raw_max_performance_loss)
+
+print(f"AUC-ROC max performance loss = {auc_separation_max_performance_loss:.3f}")
+
+ax1.scatter(np.arange(len(results_max_performance_loss[:, 0])), results_max_performance_loss[:, 0], label=f"y noise")
+ax1.scatter(np.arange(len(results_max_performance_loss[:, 1])), results_max_performance_loss[:, 1], label=f" drift")
+ax1.set_title(f"Max performance losses: AUC-ROC {auc_separation_max_performance_loss:.3f}")
+ax1.legend()
+
+plt.show()

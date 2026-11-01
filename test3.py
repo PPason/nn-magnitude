@@ -4,21 +4,21 @@ from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier
 from generator.OWDSG import OWDSG
 
-n_chunks = 300
+n_chunks = 400
 batch_size = 100
 n_features = 100
 n_informative_percent = 0.8
-n_classes = 2
+n_classes = 3
 
 X_noise = False
-X_noise_range = [150, 200]
-X_noise_factor = 2
+X_noise_range = [200, 210]
+X_noise_factor = 3
 
-y_noise = False
-y_noise_range = [150, 180]
-y_noise_factor = 0.1
+y_noise = True
+y_noise_range = [200, 210]
+y_noise_factor = 1
 
-stream = OWDSG(n_drifts=1,
+stream = OWDSG(n_drifts=0,
                n_novel=0,
                hide_label=True,
                n_classes=n_classes,
@@ -26,8 +26,8 @@ stream = OWDSG(n_drifts=1,
                n_informative=int(n_features * n_informative_percent),
                n_chunks=n_chunks,
                chunk_size=batch_size,
-               drift_magnitude=2,
-               smooth_drift=True)
+               drift_magnitude=5,
+               smooth_drift=False)
 
 mlp = MLPClassifier(hidden_layer_sizes=(40, 40, 40, ), batch_size=batch_size)
 
@@ -89,7 +89,7 @@ for n_layer in range(mlp.n_layers_ - 1):
 ax['1_layer'].legend()
 
 for n_layer in range(mlp.n_layers_ - 1):
-    params_diff = np.linalg.norm(np.diff(params[n_layer], axis=0), axis=1)/np.linalg.norm(params[n_layer][:-1], axis=1)
+    params_diff = np.linalg.norm(np.diff(params[n_layer], axis=0), axis=1)/(np.linalg.norm(params[n_layer][:-1], axis=1))
 
     ax['2_layer'].plot(params_diff, label=f'Layer {n_layer}')
     ax['2_layer'].set_title(f'Relative norm change')

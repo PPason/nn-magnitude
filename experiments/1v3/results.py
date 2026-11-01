@@ -22,7 +22,7 @@ results = np.load("results.npy")
 results_abs = results[:, :, 0].T.flatten()
 results_norm = results[:, :, 1].T.flatten()
 
-magnitudes_list = [x*magnitude_step for x in magnitudes for y in range(n_reps)]
+magnitudes_list = [x for x in magnitudes for y in range(n_reps)]
 
 res1 = stats.spearmanr(magnitudes_list, results_abs)
 res2 = stats.spearmanr(magnitudes_list, results_norm)

@@ -4,21 +4,21 @@ from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier
 from generator.OWDSG import OWDSG
 
-n_chunks = 400
+n_chunks = 100
 batch_size = 100
 n_features = 100
 n_informative_percent = 0.8
-n_classes = 3
+n_classes = 10
 
 X_noise = False
-X_noise_range = [200, 210]
-X_noise_factor = 3
+X_noise_range = [200, 230]
+X_noise_factor = 0.5
 
-y_noise = True
-y_noise_range = [200, 210]
+y_noise = False
+y_noise_range = [125, 155]
 y_noise_factor = 1
 
-stream = OWDSG(n_drifts=0,
+stream = OWDSG(n_drifts=1,
                n_novel=0,
                hide_label=True,
                n_classes=n_classes,
@@ -26,10 +26,10 @@ stream = OWDSG(n_drifts=0,
                n_informative=int(n_features * n_informative_percent),
                n_chunks=n_chunks,
                chunk_size=batch_size,
-               drift_magnitude=5,
+               drift_magnitude=0.1,
                smooth_drift=False)
 
-mlp = MLPClassifier(hidden_layer_sizes=(40, 40, 40, ), batch_size=batch_size)
+mlp = MLPClassifier(hidden_layer_sizes=(40, 40, 40,), batch_size=batch_size)
 
 accuracies = []
 

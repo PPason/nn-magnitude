@@ -16,6 +16,14 @@ magnitudes = np.linspace(0, magnitude_max, int(round(magnitude_max / magnitude_s
 
 n_reps = 50
 
+maxes = []
+
+for i in range(results_layers.shape[2]):
+    for j in range(results_layers.shape[0]):
+        maxes.append(np.argmax(results_layers[j, :, i, metric]))
+
+print(np.unique(maxes, return_counts=True))
+
 results = results[:, :, metric].T.flatten()
 
 magnitudes_list = [x for x in magnitudes for y in range(n_reps)]

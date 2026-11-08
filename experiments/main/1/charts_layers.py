@@ -44,4 +44,18 @@ for n_layer in range(n_layers):
     ax1.set_ylabel(f"{metric_names[metric]}")
     ax1.set_title(f"Results | Layer {n_layer}")
 
+colors = ["red", "blue", "green", "orange"]
+
+fig2, ax2 = plt.subplots()
+
+for n_m, n_magnitude in enumerate(magnitudes):
+    for i in range(n_layers):
+        ax2.scatter([n_m]*n_reps, results[:, i, n_m, metric], color=colors[i], label=f"Layer {i}" if n_m == 0 else None)
+
+ax2.set_xticklabels([str(x) for x in range(-1, int(magnitude_max+magnitude_step*10), 1)])
+
+ax2.set_xlabel("Magnitude")
+ax2.set_ylabel(f"{metric_names[metric]}")
+ax2.set_title("Results")
+
 plt.show()

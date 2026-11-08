@@ -122,7 +122,7 @@ ax.set_ylabel(f"{metric_names[metric]}")
 ax.set_title("Mean results")
 
 ax.legend()
-c
+
 fig1, ax1 = plt.subplots()
 
 offsets = (np.arange(n_layers) - (n_layers - 1) / 2) * 0.8 / n_layers

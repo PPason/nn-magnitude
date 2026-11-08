@@ -8,7 +8,7 @@ metric_params_names = ["mean abs", "relative norm change"]
 
 # 0 = max performance loss
 # 1 = duration
-metric_magnitude = 0
+metric_magnitude = 1
 
 results_params_layers = np.load("results_params.npy")
 results_params_net = np.load("results_params_net.npy")

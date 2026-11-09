@@ -40,4 +40,6 @@ ax1.set_xlabel(f"Magnitude ({metric_magnitude_names[metric_magnitude]})")
 ax1.set_ylabel(f"{metric_params_names[metric_params]}")
 ax1.set_title("Results")
 
+# fig1.savefig("experiment2_whole_network.png")
+
 plt.show()

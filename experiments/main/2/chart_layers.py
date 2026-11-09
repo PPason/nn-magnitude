@@ -61,4 +61,6 @@ ax1.set_title("Results")
 
 ax1.legend()
 
+# fig1.savefig("experiment2_layers_all_values.png")
+
 plt.show()

@@ -58,4 +58,8 @@ for i, n_chunk in enumerate(n_chunks):
     ax1.set_title(f"Max performance losses: AUC-ROC {auc_separation_max_performance_loss:.3f}")
     ax1.legend()
 
+    # if i == 1:
+    #     fig.savefig("experiment3_losses.png")
+    #     fig1.savefig("experiment3_parameters.png")
+
 plt.show()

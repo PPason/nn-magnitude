@@ -57,5 +57,9 @@ ax2.set_xticklabels([str(x) for x in range(-1, int(magnitude_max+magnitude_step*
 ax2.set_xlabel("Magnitude")
 ax2.set_ylabel(f"{metric_names[metric]}")
 ax2.set_title("Results")
+ax2.legend()
+
+# Moze przezroczystosc
+# fig2.savefig("experiment1_layers_all_values.png")
 
 plt.show()

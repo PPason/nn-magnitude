@@ -42,4 +42,6 @@ ax1.set_xlabel("Magnitude")
 ax1.set_ylabel(f"{metric_names[metric]}")
 ax1.set_title("Results")
 
+# fig1.savefig("experiment1_whole_network.png")
+
 plt.show()

@@ -22,6 +22,7 @@ n_layers = 4
 for i, n_chunk in enumerate(n_chunks):
 
     fig, ax = plt.subplots(nrows=2, ncols=2)
+    fig.tight_layout()
 
     col = 0
     row = 0
@@ -38,7 +39,14 @@ for i, n_chunk in enumerate(n_chunks):
         ax[row, col].scatter(np.arange(len(results[:, i, n_layer, metric, 0])), results[:, i, n_layer, metric, 0], label="y noise")
         ax[row, col].scatter(np.arange(len(results[:, i, n_layer, metric, 1])), results[:, i, n_layer, metric, 1], label="drift")
         ax[row, col].set_title(f"Layer {n_layer} | AUC-ROC {auc_separation:.3f}")
-        ax[row, col].legend()
+        ax[row, col].grid()
+        ax[row, col].spines["top"].set_visible(0)
+        ax[row, col].spines["right"].set_visible(0)
+        ax[row, col].spines["left"].set_visible(0)
+        ax[row, col].spines["bottom"].set_visible(0)
+
+        if row == 0 and col == 0:
+            ax[row, col].legend()
 
         row += 1
 
@@ -47,6 +55,7 @@ for i, n_chunk in enumerate(n_chunks):
             col += 1
 
     fig1, ax1 = plt.subplots()
+    fig1.tight_layout()
 
     y_true_max_performance_loss = np.concatenate([np.zeros(len(results_max_performance_loss[:, 0])), np.ones(len(results_max_performance_loss[:, 1]))])
     scores_max_performance_loss = np.concatenate([results_max_performance_loss[:, i, 0], results_max_performance_loss[:, i, 1]])
@@ -54,12 +63,17 @@ for i, n_chunk in enumerate(n_chunks):
     auc_separation_max_performance_loss = max(auc_raw_max_performance_loss, 1 - auc_raw_max_performance_loss)
 
     ax1.scatter(np.arange(len(results_max_performance_loss[:, i, 0])), results_max_performance_loss[:, i, 0], label=f"y noise")
-    ax1.scatter(np.arange(len(results_max_performance_loss[:, i, 1])), results_max_performance_loss[:, i, 1], label=f" drift")
+    ax1.scatter(np.arange(len(results_max_performance_loss[:, i, 1])), results_max_performance_loss[:, i, 1], label=f"drift")
     ax1.set_title(f"Max performance losses: AUC-ROC {auc_separation_max_performance_loss:.3f}")
     ax1.legend()
+    ax1.grid()
+    ax1.spines["top"].set_visible(0)
+    ax1.spines["right"].set_visible(0)
+    ax1.spines["left"].set_visible(0)
+    ax1.spines["bottom"].set_visible(0)
 
     # if i == 1:
-    #     fig.savefig("experiment3_losses.png")
-    #     fig1.savefig("experiment3_parameters.png")
+    #     fig.savefig("experiment3_parameters.png")
+    #     fig1.savefig("experiment3_losses.png")
 
 plt.show()

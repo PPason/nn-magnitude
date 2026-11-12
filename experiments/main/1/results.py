@@ -8,21 +8,14 @@ metric_names = ["mean abs", "relative norm change"]
 
 results = np.load("results.npy")
 results_layers = np.load("results_layers.npy")
+results_webb = np.load("results_webb.npy")
 
 magnitude_max = 5
 magnitude_step = 0.1
 
 magnitudes = np.linspace(0, magnitude_max, int(round(magnitude_max / magnitude_step)) + 1)
 
-n_reps = 50
-
-maxes = []
-
-for i in range(results_layers.shape[2]):
-    for j in range(results_layers.shape[0]):
-        maxes.append(np.argmax(results_layers[j, :, i, metric]))
-
-print(np.unique(maxes, return_counts=True))
+n_reps = 20
 
 results = results[:, :, metric].T.flatten()
 

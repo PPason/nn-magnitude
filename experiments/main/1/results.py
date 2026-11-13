@@ -8,7 +8,6 @@ metric_names = ["mean abs", "relative norm change"]
 
 results = np.load("results.npy")
 results_layers = np.load("results_layers.npy")
-results_webb = np.load("results_webb.npy")
 
 magnitude_max = 5
 magnitude_step = 0.1

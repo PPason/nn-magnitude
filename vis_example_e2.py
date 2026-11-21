@@ -57,8 +57,8 @@ for n_chunk_stream in range(n_chunks):
 
 
 # ---
-results_params_layers = np.load("experiments/main/2/results_params.npy")
-results_magnitudes = np.load("experiments/main/2/results_magnitude.npy")
+results_params_layers = np.load("experiments/main/exp2/results_params.npy")
+results_magnitudes = np.load("experiments/main/exp2/results_magnitude.npy")
 
 print(results_params_layers.shape)
 print(results_magnitudes.shape)

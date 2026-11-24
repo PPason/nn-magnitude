@@ -11,13 +11,14 @@ n_chunks = [150, 250, 400, 600, 1000]
 results_max_performance_loss = np.load("results_max_performance_loss.npy")
 
 mean_results_max_performance_loss = np.mean(results_max_performance_loss, axis=0)
+std_results_max_performance_loss = np.std(results_max_performance_loss, axis=0)
 
 print("mean max performance losses")
 
 for i, n_chunk in enumerate(n_chunks):
     print(n_chunk)
-    print(f"Noise: {mean_results_max_performance_loss[i, 0]}")
-    print(f"Drift: {mean_results_max_performance_loss[i, 1]}")
+    print(f"Noise: {mean_results_max_performance_loss[i, 0]:.3f} ({std_results_max_performance_loss[i, 0]:.3f})")
+    print(f"Drift: {mean_results_max_performance_loss[i, 1]:.3f} ({std_results_max_performance_loss[i, 1]:.3f})")
 
 # n_reps x n_chunks x n_layers x metric x variant (noise/drift)
 # ((100, 6, 4, 2, 2))
